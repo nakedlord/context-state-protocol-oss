@@ -1,0 +1,26 @@
+name: CSP lint
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  csp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Lint event and session files
+        run: python scripts/csp_lint.py --strict
+      - name: Check generated runtime
+        run: |
+          python scripts/build_runtime.py projects/example --check
+          python scripts/build_runtime.py projects/csp-system --check
+      - name: Validate task packet preview
+        run: python scripts/task_packet_check.py --example --project csp-system --mode producer
+      - name: Status helper smoke test
+        run: python scripts/csp_status.py --overview
