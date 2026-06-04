@@ -1,0 +1,41 @@
+name: Feature request
+description: Suggest an improvement to CSP.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What agent workflow or maintainer problem does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Describe the smallest useful change.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Documentation
+        - Example project
+        - Validation script
+        - Agent workflow
+        - Public/private safety
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Boundaries
+      options:
+        - label: This does not require hidden autonomous mutation.
+          required: true
+        - label: This can be explained with public synthetic examples.
+          required: true

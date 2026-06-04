@@ -1,31 +1,85 @@
 # Context State Protocol
 
-Context State Protocol (CSP) is a repository-native state layer for long-running
-AI agent work.
+**Repo-native memory and handoff protocol for long-running AI agent work.**
 
-It gives Codex, ChatGPT, Claude Code, and other agents a durable project map:
-what exists, what was decided, what changed, what is still active, and where a
-new session should write its trace.
+AI coding agents are getting better at a single task. They are still fragile
+across sessions: they forget why a decision was made, where a project lives,
+what sources were already processed, and which files they are allowed to touch.
 
-The core idea is simple: do not trust chat memory for project state. Put the
-state in a repo, make agents read it before meaningful work, and make every
-meaningful session leave an append-only event and session card.
+Context State Protocol (CSP) turns that missing memory into source-controlled
+project state. Agents read a small map before meaningful work, write append-only
+events after work, and leave durable decisions to explicit consolidation.
 
-## Why CSP
+```text
+chat memory is temporary
+repo state is durable
+agent work needs both
+```
 
-AI work often fails at the edges between sessions:
+## What CSP Gives You
 
-- the agent forgets project context;
-- decisions live only in a chat transcript;
-- private work gets mixed with public work;
-- different agents overwrite each other's summaries;
-- nobody can tell which source has already been processed.
+- Project routing: agents can find the right project/repository instead of
+  guessing.
+- Continuity: every meaningful run leaves an event and a session card.
+- Write discipline: ordinary agents append traces; consolidators update shared
+  projections.
+- Public/private safety: reusable protocol files stay separate from private
+  operational state.
+- Tooling: small Python scripts lint traces, build runtime views, preview task
+  packets, and show status.
 
-CSP treats context as source-controlled operational state. Agents read a small
-set of stable files, write append-only traces, and leave consolidation to an
-explicit role.
+## A 2-Minute Example
 
-## What Is In This Repo
+An agent starts a new session and reads:
+
+```text
+AGENTS.md
+context/GLOBAL_INDEX.md
+context/REPOSITORY_REGISTRY.md
+context/KNOWLEDGE_ROUTING.md
+context/REPOSITORY_REQUESTS.md
+projects/example/CONTEXT_CAPSULE.md
+projects/example/RUNTIME.md
+projects/example/THREADS.md
+projects/example/DECISIONS.md
+projects/example/CONFLICTS.md
+projects/example/KNOWLEDGE_SOURCES.md
+projects/example/REPOSITORY_STATUS.md
+```
+
+After work, it writes:
+
+```text
+projects/example/events/2026-06-04-codex-example-bootstrap.md
+projects/example/sessions/2026-06-04-codex-example-bootstrap.md
+```
+
+Then the project runtime can be rebuilt:
+
+```bash
+python scripts/build_runtime.py projects/example
+python scripts/csp_lint.py --strict
+python scripts/csp_status.py --project example
+```
+
+See the full walkthrough in
+[`examples/agent-continuity-demo`](examples/agent-continuity-demo/README.md).
+
+## When To Use CSP
+
+Use CSP when agent work is:
+
+- long-running across multiple chats or days;
+- spread across more than one repository;
+- source-backed, such as knowledge ingestion or research;
+- sensitive to public/private boundaries;
+- affected by decisions, conflicts, roadmaps, or handoffs;
+- shared by multiple agents or tools.
+
+You probably do not need CSP for a one-off script, a throwaway prototype, or a
+single isolated issue.
+
+## Repository Layout
 
 ```text
 context/
@@ -47,74 +101,82 @@ scripts/
   task_packet_check.py      Validates scoped task packets
   csp_status.py             Read-only status overview helper
 
-templates/
-  EVENT_TEMPLATE.md
-  SESSION_CARD_TEMPLATE.md
-  PROJECT_TEMPLATE.md
-
 docs/
   architecture.md
-  write-discipline.md
+  quickstart.md
   task-packet-policy.md
+  write-discipline.md
   public-export-safety.md
+  launch-kit.md
 ```
 
 ## Quick Start
 
-1. Clone this repository.
-2. Copy `projects/_template` to `projects/<your-project-alias>`.
-3. Add the alias to `context/GLOBAL_INDEX.md`.
-4. Add repo routing to `context/REPOSITORY_REGISTRY.md`.
-5. Ask your agent to follow `AGENTS.md` before meaningful work.
-6. After a session, run:
-
 ```bash
-python scripts/csp_lint.py --strict
-python scripts/build_runtime.py projects/<your-project-alias>
+git clone https://github.com/nakedlord/context-state-protocol-oss.git
+cd context-state-protocol-oss
 python scripts/csp_status.py --overview
+python scripts/csp_lint.py --strict
+python scripts/build_runtime.py projects/example --check
 ```
 
-## Agent Workflow
+Create a project:
 
-Before meaningful work, an agent should read:
+```bash
+cp -r projects/_template projects/my-project
+```
 
-1. `AGENTS.md`
-2. `context/GLOBAL_INDEX.md`
-3. `context/REPOSITORY_REGISTRY.md`
-4. `context/KNOWLEDGE_ROUTING.md`
-5. `context/REPOSITORY_REQUESTS.md`
-6. the selected project's `CONTEXT_CAPSULE.md`, `RUNTIME.md`,
-   `THREADS.md`, `DECISIONS.md`, `CONFLICTS.md`,
-   `KNOWLEDGE_SOURCES.md`, and `REPOSITORY_STATUS.md`
+Then update:
 
-After meaningful work, a normal producer writes only:
+- `context/GLOBAL_INDEX.md`
+- `context/REPOSITORY_REGISTRY.md`
+- `projects/my-project/*.md`
 
-- `projects/<project>/events/<event-id>.md`
-- `projects/<project>/sessions/<session-id>.md`
+More detail: [`docs/quickstart.md`](docs/quickstart.md).
 
-Shared projection files such as `RUNTIME.md`, `THREADS.md`, `DECISIONS.md`,
-and `GLOBAL_INDEX.md` are updated by a consolidator pass.
+## Agent Entry Contract
+
+Before meaningful work, tell your agent:
+
+```text
+Use Context State Protocol. Read AGENTS.md, context/GLOBAL_INDEX.md,
+context/REPOSITORY_REGISTRY.md, context/KNOWLEDGE_ROUTING.md,
+context/REPOSITORY_REQUESTS.md, then select the project and read its capsule,
+runtime, threads, decisions, conflicts, knowledge sources, and repository
+status. After meaningful work, write one event and one session card.
+```
+
+The full contract is in [`AGENTS.md`](AGENTS.md).
 
 ## Public Export Safety
 
-Do not make a private CSP repository public directly. A working CSP repo often
-contains local paths, private project names, business context, health context,
-personal notes, and source processing traces.
+Do not make a private CSP working repository public directly.
 
-For public release, create a clean export with new git history and only generic
-examples. See `docs/public-export-safety.md`.
+A real CSP repo can contain local paths, private project names, business
+context, personal notes, health or financial context, and source-processing
+traces. Publish clean exports with new git history and synthetic examples.
 
-## Current Status
+See [`docs/public-export-safety.md`](docs/public-export-safety.md).
 
-This public edition is intentionally small. It is a working protocol skeleton,
-not a hosted product. The next useful layers are:
+## Roadmap
 
-- richer status and routing tools;
-- stricter CI;
-- examples for multi-repository knowledge ingestion;
-- connectors for agent UIs;
-- optional vector/search adapters that keep CSP as the source of truth.
+This public edition is intentionally small. The next useful layers are:
+
+- richer demo projects;
+- stronger privacy scan helpers;
+- agent-specific setup examples for Codex, ChatGPT, Claude Code, and local
+  coding agents;
+- optional repository-local search adapters;
+- better consolidation examples;
+- launch and grant application materials for maintainers.
+
+## Contributing
+
+Useful contributions include docs, examples, stricter checks, public/private
+boundary improvements, and agent-specific setup notes.
+
+Start with [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## License
 
-Apache License 2.0. See `LICENSE`.
+Apache License 2.0. See [`LICENSE`](LICENSE).
