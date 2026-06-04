@@ -3,6 +3,8 @@
 Use this file when presenting CSP on GitHub, Hacker News, Reddit, newsletters,
 grant forms, or maintainer programs.
 
+For platform-specific drafts, see [`platform-posts.md`](platform-posts.md).
+
 ## One-Line Pitch
 
 Context State Protocol is a repo-native memory and handoff protocol for
@@ -92,3 +94,5 @@ the project useful for other OSS maintainers.
 - GitHub topics are set.
 - First issues are beginner-friendly.
 - Launch posts link to a specific demo, not only the repo root.
+- Do not post the same text everywhere; tailor the angle to each community.
+- Publish gradually and incorporate feedback before the next post.

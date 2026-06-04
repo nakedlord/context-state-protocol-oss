@@ -1,5 +1,7 @@
 # Context State Protocol
 
+[![CSP lint](https://github.com/nakedlord/context-state-protocol-oss/actions/workflows/csp-lint.yml/badge.svg)](https://github.com/nakedlord/context-state-protocol-oss/actions/workflows/csp-lint.yml)
+
 **Repo-native memory and handoff protocol for long-running AI agent work.**
 
 AI coding agents are getting better at a single task. They are still fragile
@@ -108,6 +110,7 @@ docs/
   write-discipline.md
   public-export-safety.md
   launch-kit.md
+  platform-posts.md
 ```
 
 ## Quick Start

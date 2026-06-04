@@ -10,7 +10,7 @@ This file is generated from curated project files, events, and session cards. Do
 
 ## Current State
 
-Latest event on 2026-06-04: Public CSP edition bootstrapped with clean history and synthetic examples. 2 active/paused/conflicted session card(s) are tracked.
+Latest event on 2026-06-04: Public CSP edition bootstrapped with clean history and synthetic examples. 3 active/paused/conflicted session card(s) are tracked.
 
 ## Repository Status
 
@@ -22,6 +22,7 @@ Latest event on 2026-06-04: Public CSP edition bootstrapped with clean history a
 ## Latest Events
 
 - 2026-06-04 [protocol_bootstrap/active] `public-oss-edition`: Public CSP edition bootstrapped with clean history and synthetic examples.
+- 2026-06-04 [product_update/active] `public-oss-edition`: Platform-specific launch posts and checklist added for public CSP release.
 - 2026-06-04 [product_update/active] `public-oss-edition`: Public CSP repository improved for launch readiness and OSS program applications.
 
 ## Active Threads
@@ -37,6 +38,9 @@ Latest event on 2026-06-04: Public CSP edition bootstrapped with clean history a
 - The public repository should be understandable from the first screen before
 - Launch posts should point to a concrete continuity demo, not only to the repo
 - Grant/program applications should reuse a maintained public packet instead of
+- External posting should be gradual and feedback-driven rather than the same
+- Launch messaging should ask for feedback, not stars.
+- Hacker News should use a URL submission plus a first comment.
 - Public CSP releases should be clean exports with new git history.
 - Examples should be synthetic and safe to publish.
 
@@ -53,6 +57,9 @@ Latest event on 2026-06-04: Public CSP edition bootstrapped with clean history a
 - Run validation and privacy scans.
 - Push the improved public repo.
 - Prepare platform-specific launch posts from `docs/launch-kit.md`.
+- Run validation.
+- Publish repo changes.
+- Use `docs/platform-posts.md` for the first Hacker News submission.
 - Run validation checks.
 - Publish the clean repository.
 - Improve examples based on user feedback.
