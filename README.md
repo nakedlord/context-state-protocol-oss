@@ -183,3 +183,7 @@ Start with [`CONTRIBUTING.md`](CONTRIBUTING.md).
 ## License
 
 Apache License 2.0. See [`LICENSE`](LICENSE).
+
+## Optional work continuity design
+
+The [manual design profile](docs/work-continuity-profile.md) separates stable work identity, session lifecycle, verification and delivery. Its synthetic example is safe to reuse; public CLI enforcement is not implemented.

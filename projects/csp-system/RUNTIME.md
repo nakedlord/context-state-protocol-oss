@@ -1,7 +1,7 @@
 ---
 project: csp-system
 generated: true
-generated_at: 2026-06-04
+generated_at: 2026-10-13
 ---
 
 # Runtime
@@ -10,7 +10,7 @@ This file is generated from curated project files, events, and session cards. Do
 
 ## Current State
 
-Latest event on 2026-06-04: Public CSP edition bootstrapped with clean history and synthetic examples. 3 active/paused/conflicted session card(s) are tracked.
+Latest event on 2026-10-13: Published a sanitized generic work continuity design and synthetic example; public CLI implementation remains open. 3 active/paused/conflicted session card(s) are tracked.
 
 ## Repository Status
 
@@ -21,13 +21,14 @@ Latest event on 2026-06-04: Public CSP edition bootstrapped with clean history a
 
 ## Latest Events
 
+- 2026-10-13 [product_update/active] `public-oss-edition`: Published a sanitized generic work continuity design and synthetic example; public CLI implementation remains open.
 - 2026-06-04 [protocol_bootstrap/active] `public-oss-edition`: Public CSP edition bootstrapped with clean history and synthetic examples.
 - 2026-06-04 [product_update/active] `public-oss-edition`: Platform-specific launch posts and checklist added for public CSP release.
 - 2026-06-04 [product_update/active] `public-oss-edition`: Public CSP repository improved for launch readiness and OSS program applications.
 
 ## Active Threads
 
-- ``public-oss-edition`` (active, maintainers): Keep the public CSP edition safe and useful. Next: Improve docs, examples, and validation scripts.
+- ``public-oss-edition`` (active, maintainers): Keep the public CSP edition safe and useful. Next: Optional work continuity design and synthetic example published; public CLI enforcement remains unimplemented. Qualify a separate reader/writer/schema port before adoption.
 
 ## Decisions
 
@@ -50,7 +51,7 @@ Latest event on 2026-06-04: Public CSP edition bootstrapped with clean history a
 
 ## Next Actions
 
-- Improve docs, examples, and validation scripts.
+- Optional work continuity design and synthetic example published; public CLI enforcement remains unimplemented. Qualify a separate reader/writer/schema port before adoption.
 
 ## Next Action Candidates
 

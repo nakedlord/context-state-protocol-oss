@@ -1,0 +1,15 @@
+{
+  "profile": "manual-design-example",
+  "work_id": "work-example-compile-notes",
+  "project": "example",
+  "thread": "protocol-bootstrap",
+  "goal": "Compile reviewed synthetic notes",
+  "owner": "example-maintainer",
+  "result": "Source-backed synthetic summary",
+  "acceptance": "Every summary claim links to a reviewed synthetic source; a separate reader verifies the complete source set",
+  "head": "example-registration",
+  "state": "active",
+  "next_action": "Read the two synthetic sources; no executable commands are stored in this profile",
+  "verification": "unverified",
+  "delivery": "local"
+}
