@@ -1,3 +1,14 @@
+<!-- INSTRUCTION-SOURCE:START v1 -->
+## Instruction freshness
+
+Before meaningful work, identify this repository's origin and default branch,
+fetch that branch with a bounded timeout, and compare HEAD with origin/<branch>.
+Preserve local changes: do not reset, merge, or clean a divergent checkout.
+Read current AGENTS.md from origin/<branch> when local instructions differ.
+Keep repository-specific constraints. Fresh instructions do not grant authority
+to deploy, publish, change credentials, or modify external systems.
+<!-- INSTRUCTION-SOURCE:END -->
+
 # Agent Instructions
 
 Use Context State Protocol for durable project work: code, theories, processes,
@@ -62,7 +73,7 @@ Producers do not edit:
 - `projects/<project>/REPOSITORY_STATUS.md`
 
 If a producer discovers that those shared files need updates, it records that in
-the event/session with `needs_consolidation`.
+the event only with `needs_consolidation: true`; session cards must not carry this flag.
 
 ### Consolidator
 
